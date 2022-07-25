@@ -1,0 +1,80 @@
+.filtro{
+    width: 100%;
+    height: 80px;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.acoes-filtro{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.column{
+    width: 35%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12pt;
+}
+
+.column select{
+    height: 30px;
+    padding: 0 0 0 5px;
+}
+
+.area-tabela{
+    width: 100%;
+    height: 80%;
+    overflow: scroll !important;
+}
+
+.tabela{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+thead{
+    height: 40px;
+}
+
+.td-dado{
+    white-space: nowrap;
+}
+
+.td-dado{
+    white-space: nowrap;
+    text-align: center;
+    padding: 0 10px;
+}
+
+tbody tr{
+    height: 40px;
+}
+
+tbody tr:hover{
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.icone-reprovar, .reprovado{
+    color: #ff0000;
+}
+
+.icone-aprovar, .aprovado{
+    color: #008000;
+}
+
+.pendente{
+    color:#fab700;
+}

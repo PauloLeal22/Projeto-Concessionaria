@@ -1,0 +1,55 @@
+<%- include('../partials/head.ejs') %>
+<link rel="stylesheet" href="/assets/css/usuarios/lista.css">
+
+<body>
+    <%- include('../partials/horizontal-navbar.ejs') %>
+    <div class="container">
+        <%- include('../partials/vertical-navbar.ejs') %>
+
+        <div class="content">
+            <div class="filtro">
+                <h2>Lista de Usuários</h2>
+                <div class="acoes-filtro">
+                    <div class="column">
+                        <label for="pesquisa">Pesquisar</label>
+                        <input type="text" name="pesquisa" id="pesquisa" placeholder="Digite o nome do usuário...">
+                    </div>
+                    
+                    <button id="btnNovoUsuario" class="btn btn-padrao">
+                        <span><i class="fa-solid fa-plus"></i>Novo Usuário</span>
+                    </button>
+                </div>
+            </div>
+            <table class="tabela">
+                <thead>
+                    <th class="th-dado">Nome</th>
+                    <th class="th-dado">Login</th>
+                    <th class="th-dado">E-mail</th>
+                    <th class="th-acao">Status</th>
+                    <th class="th-acao">Ação</th>
+                </thead>
+                <tbody>
+                    <% usuarios.forEach(usuario => { %>
+                        <tr data-id="<%= usuario.id_usuario %>">
+                            <td class="td-dado td-nome"><%= usuario.nome %></td>
+                            <td class="td-dado"><%= usuario.login %></td>
+                            <td class="td-dado"><%= usuario.email %></td>
+                            <td class="td-dado <%= usuario.status_usuario == 'Ativo' ? 'ativo' : 'bloqueado'%>">
+                                <%= usuario.status_usuario %>
+                            </td>
+                            <td class="td-acao">
+                                <% if(usuario.status_usuario == 'Ativo'){ %>
+                                    <i class="fa-solid fa-ban icone-bloquear"></i>
+                                <% } else { %>
+                                    <i class="fa-solid fa-lock-open icone-desbloquear"></i>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/assets/js/usuarios/lista.js"></script>
+</body>

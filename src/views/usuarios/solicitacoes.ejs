@@ -1,0 +1,87 @@
+<%- include('../partials/head.ejs') %>
+<link rel="stylesheet" href="/assets/css/usuarios/solicitacoes.css">
+
+<body>
+    <%- include('../partials/horizontal-navbar.ejs') %>
+    <div class="container">
+        <%- include('../partials/vertical-navbar.ejs') %>
+
+        <div class="content">
+            <div class="filtro">
+                <h2>Solicitações de Alterações de <%= tipoEscolhido %></h2>
+                <div class="acoes-filtro">
+                    <div class="column">
+                        <label for="selectTipoSolicitacao">Tipo de Solicitação</label>
+                        <select id="selectTipoSolicitacao">
+                            <option value="cpf" <%= tipoEscolhido === 'CPF' ? 'selected' : '' %>>CPF</option>
+                            <option value="nome" <%= tipoEscolhido === 'Nome' ? 'selected' : '' %>>Nome</option>
+                            <option value="login" <%= tipoEscolhido === 'Login' ? 'selected' : '' %>>Login</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="area-tabela">
+                <table class="tabela">
+                    <thead>
+                        <th class="th-dado">Solicitante</th>
+                        <th class="th-dado">Usuário</th>
+                        <th class="th-dado"><%= tipoEscolhido %> Anterior</th>
+                        <th class="th-acao">Novo <%= tipoEscolhido %></th>
+                        <th class="th-acao">Data da Solicitação</th>
+                        <th class="th-dado">Motivo</th>
+                        <th class="th-dado">Aprovador</th>
+                        <th class="th-dado">Data da Aprovação</th>
+                        <th class="th-dado">Observações</th>
+                        <th class="th-dado">Status</th>
+                    </thead>
+                    <tbody>
+                        <% solicitacoes.forEach(solicitacao => { %>
+                            <tr data-id="<%= solicitacao.id_solicitacao %>">
+                                <td class="td-dado"><%= solicitacao.solicitante %></td>
+                                <td class="td-dado"><%= solicitacao.usuario %></td>
+
+                                <% if(tipoEscolhido == 'CPF') { %>
+                                    <td class="td-dado td-cpf">
+                                        <%= solicitacao.cpf_anterior %>
+                                    </td>
+                                    <td class="td-dado td-cpf">
+                                        <%= solicitacao.novo_cpf %>
+                                    </td>
+                                <% }else if(tipoEscolhido == 'Nome'){ %>
+                                    <td class="td-dado">
+                                        <%= solicitacao.nome_anterior %>
+                                    </td>
+                                    <td class="td-dado td-cpf">
+                                        <%= solicitacao.novo_nome %>
+                                    </td>
+                                <% }else if(tipoEscolhido == 'Login'){ %>
+                                    <td class="td-dado">
+                                        <%= solicitacao.login_anterior %>
+                                    </td>
+                                    <td class="td-dado td-cpf">
+                                        <%= solicitacao.novo_login %>
+                                    </td>
+                                <% } %>
+
+                                <td class="td-dado"><%= solicitacao.data_solicitacao %></td>
+                                <td class="td-dado"><%= solicitacao.motivo %></td>
+                                <td class="td-dado"><%= solicitacao.aprovador %></td>
+                                <td class="td-dado"><%= solicitacao.data_aprovacao %></td>
+                                <td class="td-dado"><%= solicitacao.observacao %></td>
+                                <% if(solicitacao.status_solicitacao == 1) { %>
+                                    <td class="td-dado aprovado">Aprovado</td>
+                                <% }else if(solicitacao.status_solicitacao == 0){ %>
+                                    <td class="td-dado reprovado">Reprovado</td>
+                                <% }else { %>
+                                    <td class="td-dado pendente">Pendente</td>
+                                <% } %>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/usuarios/solicitacoes.js"></script>
+</body>

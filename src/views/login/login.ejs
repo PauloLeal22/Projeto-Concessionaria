@@ -1,0 +1,27 @@
+<%- include('../partials/head.ejs') %> 
+<link rel="stylesheet" href="/assets/css/login/login.css">
+</head>
+
+<body>    
+    <div class="container-login">
+        <input type="hidden" id="erro" value="<%= error ? error : '' %>">
+        <div class="form-login">
+            <img src="/assets/images/logo02.png" id="logoLogin" alt="Logo Leal Multimarcas">
+            <form id="formLogin">
+                <h1>Login</h1>
+                <label for="login">Usuário</label>
+                <input type="text" name="login" id="login" required>
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" required>
+                <button type="submit" id="btnLogin" class="btn btn-login">
+                    <span>Entrar</span>
+                </button>
+            </form>
+            <hr>
+            <a href="">Esqueci a senha</a>
+        </div>
+    </div>
+
+    <script src="/assets/js/login/verificaLogin.js"></script>
+</body>
+</html>

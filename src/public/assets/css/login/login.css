@@ -1,0 +1,100 @@
+.container-login{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../images/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-login{
+    width: 40%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+.form-login #logoLogin{
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 999;
+    margin-top: -60px;
+    background-color: #fff;
+}
+
+.form-login h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-login input{
+    width: 100%;
+    height: 35px;
+    font-size: 14pt;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border: solid 1px #9A9A9A;
+    border-radius: 5px;
+}
+
+.btn{
+    width: 40%;
+    height: 40px;
+    position: relative;
+    display: block;
+    font-size: 14pt;
+    overflow: hidden;
+    transition: 1s all ease;
+    background-color: #1761A0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn span{
+    z-index: 2;
+    position: relative;
+    color: #fff;
+}
+
+.btn::before{
+    width: 100%;
+    height: 100%;
+    background-color: #00b7ff;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+    transition: all 0.6s ease;
+    color: #fff;
+}
+
+.btn-login::before{
+    width: 100%;
+    height: 0%;
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+
+.btn-login:hover::before{
+    height: 420%;
+}
+
+.btn-login{
+    width: 40%;
+    margin: 10px 0;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+}
+
+.form-login hr{
+    margin: 10px 0;
+}
