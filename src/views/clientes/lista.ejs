@@ -1,0 +1,45 @@
+<%- include('../partials/head.ejs') %>
+<link rel="stylesheet" href="/assets/css/clientes/lista.css">
+
+<body>
+    <%- include('../partials/horizontal-navbar.ejs') %>
+    <div class="container">
+        <%- include('../partials/vertical-navbar.ejs') %>
+
+        <div class="content">
+            <div class="filtro">
+                <h2>Lista de Clientes</h2>
+                <div class="acoes-filtro">
+                    <div class="column">
+                        <label for="pesquisa">Pesquisar</label>
+                        <input type="text" name="pesquisa" id="pesquisa" placeholder="Digite o nome do cliente...">
+                    </div>
+                    
+                    <button id="btnNovoCliente" class="btn btn-padrao">
+                        <span><i class="fa-solid fa-plus"></i>Novo Cliente</span>
+                    </button>
+                </div>
+            </div>
+            <table class="tabela">
+                <thead>
+                    <th class="th-dado">Nome</th>
+                    <th class="th-dado">CPF/CNPJ</th>
+                    <th class="th-dado">E-mail</th>
+                    <th class="th-dado">Data do Cadastro</th>
+                </thead>
+                <tbody>
+                    <% clientes.forEach(cliente => { %>
+                        <tr data-id="<%= cliente.id_cliente %>">
+                            <td class="td-dado td-nome"><%= cliente.nome %></td>
+                            <td class="td-dado td-cpf"><%= cliente.cpf_cnpj %></td>
+                            <td class="td-dado"><%= cliente.email %></td>
+                            <td class="td-dado"><%= cliente.data_cadastro %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/assets/js/clientes/lista.js"></script>
+</body>

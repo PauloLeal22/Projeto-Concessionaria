@@ -1,4 +1,4 @@
-.form-usuario{
+.form-cliente{
     width: 100%;
     height: 100%;
     padding: 10px;
@@ -79,12 +79,12 @@
 }
 
 .row-tri .column{
-    width: 30%;
+    width: 32%;
 }
 
 .row-btn{
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 label{

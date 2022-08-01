@@ -1,5 +1,5 @@
 <%- include('../partials/head.ejs') %>
-<link rel="stylesheet" href="/assets/css/usuarios/solicitacoes.css">
+<link rel="stylesheet" href="/assets/css/clientes/solicitacoes.css">
 
 <body>
     <%- include('../partials/horizontal-navbar.ejs') %>
@@ -13,9 +13,8 @@
                     <div class="column">
                         <label for="selectTipoSolicitacao">Tipo de Solicitação</label>
                         <select id="selectTipoSolicitacao">
-                            <option value="cpf" <%= tipoEscolhido === 'CPF' ? 'selected' : '' %>>CPF</option>
+                            <option value="cpf" <%= tipoEscolhido === 'CPF/CNPJ' ? 'selected' : '' %>>CPF/CNPJ</option>
                             <option value="nome" <%= tipoEscolhido === 'Nome' ? 'selected' : '' %>>Nome</option>
-                            <option value="login" <%= tipoEscolhido === 'Login' ? 'selected' : '' %>>Login</option>
                         </select>
                     </div>
                 </div>
@@ -24,7 +23,7 @@
                 <table class="tabela">
                     <thead>
                         <th class="th-dado">Solicitante</th>
-                        <th class="th-dado">Usuário</th>
+                        <th class="th-dado">Cliente</th>
                         <th class="th-dado"><%= tipoEscolhido %> Anterior</th>
                         <th class="th-acao">Novo <%= tipoEscolhido %></th>
                         <th class="th-acao">Data da Solicitação</th>
@@ -38,9 +37,9 @@
                         <% solicitacoes.forEach(solicitacao => { %>
                             <tr data-id="<%= solicitacao.id_solicitacao %>">
                                 <td class="td-dado"><%= solicitacao.solicitante %></td>
-                                <td class="td-dado"><%= solicitacao.usuario %></td>
+                                <td class="td-dado"><%= solicitacao.cliente %></td>
 
-                                <% if(tipoEscolhido == 'CPF') { %>
+                                <% if(tipoEscolhido == 'CPF/CNPJ') { %>
                                     <td class="td-dado td-cpf">
                                         <%= solicitacao.cpf_anterior %>
                                     </td>
@@ -53,13 +52,6 @@
                                     </td>
                                     <td class="td-dado td-cpf">
                                         <%= solicitacao.novo_nome %>
-                                    </td>
-                                <% }else if(tipoEscolhido == 'Login'){ %>
-                                    <td class="td-dado">
-                                        <%= solicitacao.login_anterior %>
-                                    </td>
-                                    <td class="td-dado td-cpf">
-                                        <%= solicitacao.novo_login %>
                                     </td>
                                 <% } %>
 
@@ -83,5 +75,5 @@
         </div>
     </div>
 
-    <script src="/assets/js/usuarios/solicitacoes.js"></script>
+    <script src="/assets/js/clientes/solicitacoes.js"></script>
 </body>

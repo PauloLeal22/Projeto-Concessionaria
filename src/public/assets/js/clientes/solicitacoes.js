@@ -6,7 +6,11 @@ window.onload = () => {
         let tdCpf = td.classList.contains('td-cpf');
         if(tdCpf) {
             td.id = `td${td.innerText}`;
-            maskCpf(td.id);
+            if(td.innerText.length > 11) {
+                maskCnpj(td.id);
+            } else {
+                maskCpf(td.id);
+            }
         }
     });
 
@@ -25,7 +29,7 @@ window.onload = () => {
 
 // Função que redireciona para a página de cada tipo de solicitação
 function redireciona(tipo) {
-    location.href = `/usuarios/solicitacoes/${tipo}`;
+    location.href = `/clientes/solicitacoes/${tipo}`;
 }
 
 // Função que abre o formulário de aprovação ou exibe um aviso caso a aprovação não esteja pendente
@@ -41,7 +45,7 @@ async function abreAcao(tr){
     // Pega os principais dados da solicitação
     const idSolicitacao = tr.dataset.id;
     const solicitante = tr.children[0].innerText;
-    const usuario = tr.children[1].innerText;
+    const cliente = tr.children[1].innerText;
     const valorAtual= tr.children[2].innerText;
     const novoValor = tr.children[3].innerText;
     const motivo = tr.children[5].innerText;
@@ -49,7 +53,7 @@ async function abreAcao(tr){
     // Cria os campos do formulário
     const campos = `
         <p style="text-align: left">Solicitante: ${solicitante}</p>
-        <p style="text-align: left">Usuário: ${usuario}</p>
+        <p style="text-align: left">Cliente: ${cliente}</p>
         <p style="text-align: left">Valor Atual: ${valorAtual}</p>
         <p style="text-align: left">Novo Valor: ${novoValor}</p>
         <p style="text-align: left">Motivo: ${motivo}</p>
@@ -87,7 +91,7 @@ async function abreAcao(tr){
         const tipoSolicitacao = document.querySelector('#selectTipoSolicitacao').value;
     
         // Envia os dados para o controller
-        const response = await axios.patch('/usuarios/solicitacao', {
+        const response = await axios.patch('/clientes/solicitacao', {
             idSolicitacao,
             novoStatus: valores.novoStatus,
             observacao: valores.observacao,

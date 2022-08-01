@@ -1,0 +1,262 @@
+<%- include('../partials/head.ejs') %>
+<link rel="stylesheet" href="/assets/css/clientes/cadastro.css">
+</head>
+
+<body>
+    <%- include('../partials/horizontal-navbar.ejs') %>
+    <div class="container">
+        <%- include('../partials/vertical-navbar.ejs') %>
+
+        <section class="content">
+            <form class="form-cliente">
+                <input type="hidden" name="acao" id="acao" value="<%= acao %>">
+                <input type="hidden" name="idCliente" id="idCliente" value="<%= cliente ? cliente.id_cliente : '' %>">
+                <input type="hidden" name="qtdSolicitacoesCpfCnpj" id="qtdSolicitacoesCpfCnpj" value="<%= qtdSolicitacoesCpfCnpj %>">
+                <input type="hidden" name="qtdSolicitacoesNome" id="qtdSolicitacoesNome" value="<%= qtdSolicitacoesNome %>">
+
+                <div class="titulo">
+                    <div class="label">
+                        <h1>Cadastro de Cliente</h1>
+                    </div>
+                    <div class="area-button">
+                        <button id="btnOpcoes" type="button">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-padrao" id="btnAlteraCpf"><span> Editar CPF/CNPJ </span></button>
+                            <button type="button" class="btn btn-padrao" id="btnAlteraNome"><span> Editar nome </span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-form">
+                    <div class="column">
+                        <div class="row-tri">
+                            <div class="column">
+                                <label for="dataCadastro">Data do Cadastro</label>
+                                <input 
+                                    type="text" 
+                                    name="dataCadastro" 
+                                    id="dataCadastro" 
+                                    class="campo readonly" 
+                                    value="<%= cliente ? cliente.data_cadastro : '' %>" 
+                                    readonly
+                                >
+                            </div>
+                            
+                            <div class="column">
+                                <label>Tipo de Pessoa</label>
+                                <select 
+                                    name="tipoPessoa"
+                                    id="tipoPessoa"
+                                    class="campo <%= cliente ? 'readonly' : '' %>" 
+                                    <%= cliente ? 'disabled' : '' %>
+                                >
+                                    <option value="pf">Física</option>
+                                    <option value="pj">Jurídica</option>
+                                </select>
+                            </div>
+                            
+                            <div class="column">
+                                <label for="cpfCnpj" id="labelCpfCnpj">CPF <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="cpfCnpj" 
+                                    id="cpfCnpj" 
+                                    class="campo <%= cliente ? 'readonly' : '' %>"
+                                    value="<%= cliente ? cliente.cpf_cnpj : '' %>" 
+                                    required
+                                    <%= cliente ? 'readonly' : '' %>
+                                >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="nome">Nome Completo <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                name="nome" 
+                                id="nome" 
+                                class="campo <%= cliente ? 'readonly' : '' %>"
+                                value="<%= cliente ? cliente.nome : '' %>" 
+                                required
+                                <%= cliente ? 'readonly' : '' %>
+                            >
+                        </div>
+                        <div class="row">
+                            <label for="email">E-mail <span class="required">*</span></label>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                id="email" 
+                                class="campo"
+                                value="<%= cliente ? cliente.email : '' %>" 
+                                required
+                            >
+                        </div>
+                        <div class="row-duo">
+                            <div class="column">
+                                <label for="celular">Celular <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="celular" 
+                                    id="celular" 
+                                    class="campo" 
+                                    value="<%= cliente ? cliente.celular : '' %>" 
+                                    required
+                                >
+                            </div>
+                            <div class="column">
+                                <label for="telefone">Telefone</label>
+                                <input 
+                                    type="text" 
+                                    name="telefone" 
+                                    id="telefone" 
+                                    class="campo"
+                                    value="<%= cliente ? cliente.telefone : '' %>"
+                                >
+                            </div>
+                        </div>
+                        <div class="row-duo">
+                            <div class="column">
+                                <label for="rg">RG</label>
+                                <input 
+                                    type="text" 
+                                    name="rg" 
+                                    id="rg" 
+                                    class="campo"
+                                    value="<%= cliente ? cliente.rg : '' %>"
+                                >
+                            </div>
+                            <div class="column">
+                                <label for="dataRg">Data de Emissão do RG</label>
+                                <input 
+                                    type="text" 
+                                    name="dataRg" 
+                                    id="dataRg" 
+                                    class="campo"
+                                    value="<%= cliente ? cliente.data_rg : '' %>"
+                                >
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="row-duo">
+                            <div class="column">
+                                <label for="cep">CEP <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="cep" 
+                                    id="cep" 
+                                    class="campo" 
+                                    value="<%= cliente ? cliente.cep : '' %>"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="row-duo">
+                            <div class="column" id="columnLogradouro">
+                                <label for="logradouro">Logradouro <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="logradouro" 
+                                    id="logradouro" 
+                                    class="campo readonly" 
+                                    value="<%= cliente ? cliente.logradouro : '' %>"
+                                    required 
+                                    readonly
+                                >
+                            </div>
+                            <div class="column" id="columnNumero">
+                                <label for="numero">Número <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="numero" 
+                                    id="numero" 
+                                    class="campo"
+                                    value="<%= cliente ? cliente.numero : '' %>"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="bairro">Bairro <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                name="bairro" 
+                                id="bairro" 
+                                class="campo readonly"
+                                value="<%= cliente ? cliente.bairro : '' %>"
+                                required 
+                                readonly
+                            >
+                        </div>
+                        <div class="row">
+                            <label for="complemento">Complemento</label>
+                            <input 
+                                type="text" 
+                                name="complemento" 
+                                id="complemento" 
+                                class="campo" 
+                                value="<%= cliente ? cliente.complemento : '' %>"
+                            >
+                        </div>
+                        <div class="row-duo">
+                            <div class="column" id="columnUF">
+                                <label for="estado">UF <span class="required">*</span></label>
+                                <select name="estado" id="estado" class="campo readonly" required disabled>
+                                    <option class="option" value="AC" <%= cliente ? (cliente.estado == "AC" ? 'selected' : '') : '' %>>AC</option>
+                                    <option class="option" value="AL" <%= cliente ? (cliente.estado == "AL" ? 'selected' : '') : '' %>>AL</option>
+                                    <option class="option" value="AM" <%= cliente ? (cliente.estado == "AM" ? 'selected' : '') : '' %>>AM</option>
+                                    <option class="option" value="AP" <%= cliente ? (cliente.estado == "AP" ? 'selected' : '') : '' %>>AP</option>
+                                    <option class="option" value="BA" <%= cliente ? (cliente.estado == "BA" ? 'selected' : '') : '' %>>BA</option>
+                                    <option class="option" value="CE" <%= cliente ? (cliente.estado == "CE" ? 'selected' : '') : '' %>>CE</option>
+                                    <option class="option" value="DF" <%= cliente ? (cliente.estado == "DF" ? 'selected' : '') : '' %>>DF</option>
+                                    <option class="option" value="ES" <%= cliente ? (cliente.estado == "ES" ? 'selected' : '') : '' %>>ES</option>
+                                    <option class="option" value="GO" <%= cliente ? (cliente.estado == "GO" ? 'selected' : '') : '' %>>GO</option>
+                                    <option class="option" value="MA" <%= cliente ? (cliente.estado == "MA" ? 'selected' : '') : '' %>>MA</option>
+                                    <option class="option" value="MG" <%= cliente ? (cliente.estado == "MG" ? 'selected' : '') : '' %>>MG</option>
+                                    <option class="option" value="MS" <%= cliente ? (cliente.estado == "MS" ? 'selected' : '') : '' %>>MS</option>
+                                    <option class="option" value="MT" <%= cliente ? (cliente.estado == "MT" ? 'selected' : '') : '' %>>MT</option>
+                                    <option class="option" value="PA" <%= cliente ? (cliente.estado == "PA" ? 'selected' : '') : '' %>>PA</option>
+                                    <option class="option" value="PB" <%= cliente ? (cliente.estado == "PB" ? 'selected' : '') : '' %>>PB</option>
+                                    <option class="option" value="PE" <%= cliente ? (cliente.estado == "PE" ? 'selected' : '') : '' %>>PE</option>
+                                    <option class="option" value="PI" <%= cliente ? (cliente.estado == "PI" ? 'selected' : '') : '' %>>PI</option>
+                                    <option class="option" value="PR" <%= cliente ? (cliente.estado == "PR" ? 'selected' : '') : '' %>>PR</option>
+                                    <option class="option" value="RJ" <%= cliente ? (cliente.estado == "RJ" ? 'selected' : '') : '' %>>RJ</option>
+                                    <option class="option" value="RN" <%= cliente ? (cliente.estado == "RN" ? 'selected' : '') : '' %>>RN</option>
+                                    <option class="option" value="RO" <%= cliente ? (cliente.estado == "RO" ? 'selected' : '') : '' %>>RO</option>
+                                    <option class="option" value="RR" <%= cliente ? (cliente.estado == "RR" ? 'selected' : '') : '' %>>RR</option>
+                                    <option class="option" value="RS" <%= cliente ? (cliente.estado == "RS" ? 'selected' : '') : '' %>>RS</option>
+                                    <option class="option" value="SC" <%= cliente ? (cliente.estado == "SC" ? 'selected' : '') : '' %>>SC</option>
+                                    <option class="option" value="SE" <%= cliente ? (cliente.estado == "SE" ? 'selected' : '') : '' %>>SE</option>
+                                    <option class="option" value="SP" <%= cliente ? (cliente.estado == "SP" ? 'selected' : '') : '' %>>SP</option>
+                                    <option class="option" value="TO" <%= cliente ? (cliente.estado == "TO" ? 'selected' : '') : '' %>>TO</option>
+                                </select>
+                            </div>
+                            <div class="column" id="columnCidade">
+                                <label for="cidade">Cidade <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="cidade" 
+                                    id="cidade" 
+                                    class="campo readonly"
+                                    value="<%= cliente ? cliente.cidade : '' %>"
+                                    required 
+                                    readonly
+                                >
+                            </div>
+                        </div>
+                        <div class="row-btn">
+                            <button type="submit" id="btnSalvar" class="btn btn-padrao">
+                                <span>Salvar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script src="/assets/utils/cep.js"></script>
+    <script src="/assets/js/clientes/cadastro.js"></script>
+</body>
