@@ -59,6 +59,8 @@ class Cliente {
         const {
             cpfCnpj,
             nome,
+            sexo,
+            dataNasc,
             email,
             celular,
             telefone,
@@ -68,8 +70,8 @@ class Cliente {
             idEndereco,
         } = dados;
 
-        const sql = 'CALL proc_insert_cliente (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        const values = [nome, email, celular, telefone, cpfCnpj, rg, dataRg, idUsuario, idEndereco,];
+        const sql = 'CALL proc_insert_cliente (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const values = [nome, sexo, dataNasc, email, celular, telefone, cpfCnpj, rg, dataRg, idUsuario, idEndereco,];
 
         try {
             return new Promise((res, rej) => {
@@ -93,6 +95,8 @@ class Cliente {
     updateCliente(dados) {
         const {
             idCliente,
+            sexo,
+            dataNasc,
             email,
             celular,
             telefone,
@@ -101,8 +105,8 @@ class Cliente {
             idEndereco,
         } = dados;
 
-        const sql = 'CALL proc_update_cliente (?, ?, ?, ?, ?, ?, ?)';
-        const values = [idCliente, email, celular, telefone, rg, dataRg, idEndereco];
+        const sql = 'CALL proc_update_cliente (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const values = [idCliente, sexo, dataNasc, email, celular, telefone, rg, dataRg, idEndereco];
 
         try {
             return new Promise((res, rej) => {

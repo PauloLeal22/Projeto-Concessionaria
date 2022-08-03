@@ -40,10 +40,6 @@ class ClienteController {
 
         const solicitacoes = await clienteModel.getSolicitacoesClientes(tipoSolicitacao);
 
-        let dia;
-        let mes;
-        let ano;
-
         solicitacoes.forEach(solicitacao => {
             solicitacao.data_solicitacao = formatDate(solicitacao.data_solicitacao);
 
@@ -64,20 +60,9 @@ class ClienteController {
 
         let cliente = await clienteModel.getCliente('id', id);
 
-        let dataCadastro = cliente[0].data_cadastro;
-        const diaCadastro = dataCadastro.getDate() <= 9 ?  `0${dataCadastro.getDate()}` : dataCadastro.getDate();
-        const mesCadastro = dataCadastro.getMonth() <= 8 ?  `0${dataCadastro.getMonth() + 1}` : dataCadastro.getMonth() + 1;
-        const anoCadastro = dataCadastro.getFullYear();
-        dataCadastro = `${diaCadastro}/${mesCadastro}/${anoCadastro}`;
-
-        let dataRg = cliente[0].data_rg;
-        const diaRg = dataRg.getDate() <= 9 ?  `0${dataRg.getDate()}` : dataRg.getDate();
-        const mesRg = dataRg.getMonth() <= 8 ?  `0${dataRg.getMonth() + 1}` : dataRg.getMonth() + 1;
-        const anoRg = dataRg.getFullYear();
-        dataRg = `${diaRg}/${mesRg}/${anoRg}`;
-
-        cliente[0].data_cadastro = dataCadastro;
-        cliente[0].data_rg = dataRg;
+        cliente[0].data_cadastro = formatDate(cliente[0].data_cadastro);
+        cliente[0].data_nasc = formatDate(cliente[0].data_nasc);
+        cliente[0].data_rg = formatDate(cliente[0].data_rg);
 
         const solicitacoes = await clienteModel.getSolicitacoesPendentesCliente(id);
 
@@ -109,6 +94,8 @@ class ClienteController {
         const { 
             cpfCnpj,
             nome,
+            sexo,
+            dataNasc,
             email,
             celular,
             telefone,
@@ -130,6 +117,10 @@ class ClienteController {
         if(!nome) {
             return res.json({ message: 'O nome do cliente é de preenchimento obrigatório!' });
         }
+
+        if(!dataNasc) {
+            return res.json({ message: 'A data de nascimento do cliente é de preenchimento obrigatório!' });
+        }
     
         if(!email) {
             return res.json({ message: 'O e-mail do cliente é de preenchimento obrigatório!' });
@@ -145,6 +136,10 @@ class ClienteController {
             dataRgFormatada = dataRg.split('/');
             dataRgFormatada = `${dataRgFormatada[2]}-${dataRgFormatada[1]}-${dataRgFormatada[0]}`;
         }
+
+        let dataNascFormatada = null;
+        dataNascFormatada = dataNasc.split('/');
+        dataNascFormatada = `${dataNascFormatada[2]}-${dataNascFormatada[1]}-${dataNascFormatada[0]}`;
 
         let cliente = await clienteModel.getCliente('cpf', cpfCnpj.replace(/[^\d]/g, ""));
 
@@ -169,6 +164,8 @@ class ClienteController {
         cliente = await clienteModel.storeCliente({
             cpfCnpj: cpfCnpj.replace(/[^\d]/g, ""),
             nome: nome,
+            sexo: sexo,
+            dataNasc: dataNascFormatada,
             email: email,
             celular: celular.replace(/[^\d]/g, ""),
             telefone: telefone.replace(/[^\d]/g, ""),
@@ -184,6 +181,8 @@ class ClienteController {
     async update(req, res) {
         const { 
             idCliente,
+            sexo,
+            dataNasc,
             email,
             celular,
             telefone,
@@ -201,13 +200,20 @@ class ClienteController {
         if(!email) {
             return res.json({ message: 'O e-mail do cliente é de preenchimento obrigatório!' });
         }
+
+        if(!dataNasc) {
+            return res.json({ message: 'A data de nascimento do cliente é de preenchimento obrigatório!' });
+        }
     
         if(!celular) {
             return res.json({ message: 'O número do celular do cliente é de preenchimento obrigatório!' });
         }
 
-        let dataRgFormatada = null;
+        let dataNascFormatada = null;
+        dataNascFormatada = dataNasc.split('/');
+        dataNascFormatada = `${dataNascFormatada[2]}-${dataNascFormatada[1]}-${dataNascFormatada[0]}`;
 
+        let dataRgFormatada = null;
         if(dataRg !== undefined){
             dataRgFormatada = dataRg.split('/');
             dataRgFormatada = `${dataRgFormatada[2]}-${dataRgFormatada[1]}-${dataRgFormatada[0]}`;
@@ -229,6 +235,8 @@ class ClienteController {
 
         const cliente = await clienteModel.updateCliente({
             idCliente,
+            sexo,
+            dataNasc: dataNascFormatada,
             email,
             celular: celular.replace(/[^\d]/g, ""),
             telefone: telefone.replace(/[^\d]/g, ""),

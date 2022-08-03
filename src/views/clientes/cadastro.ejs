@@ -81,6 +81,31 @@
                                 <%= cliente ? 'readonly' : '' %>
                             >
                         </div>
+                        <div class="row-duo">
+                            <div class="column">
+                                <label for="sexo">Sexo <span class="required">*</span></label>
+                                <select 
+                                    name="sexo"
+                                    id="sexo"
+                                    class="campo" 
+                                    required
+                                >
+                                    <option value="masculino" <%= cliente ? (cliente.sexo == "masculino" ? 'selected' : '') : '' %>>Masculino</option>
+                                    <option value="feminino" <%= cliente ? (cliente.sexo == "feminino" ? 'selected' : '') : '' %>>Feminino</option>
+                                </select>
+                            </div>
+                            <div class="column">
+                                <label for="dataNasc">Data de Nascimento<span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="dataNasc" 
+                                    id="dataNasc" 
+                                    class="campo"
+                                    value="<%= cliente ? cliente.data_nasc : '' %>"
+                                    required
+                                >
+                            </div>
+                        </div>
                         <div class="row">
                             <label for="email">E-mail <span class="required">*</span></label>
                             <input 

@@ -20,6 +20,8 @@ window.onload = () => {
 
         const tipoPessoa = document.querySelector('#tipoPessoa');
         tipoPessoa.addEventListener('change', (event) => alteraCampoCpfCnpj(event.target.value));
+
+        maskCpf('cpfCnpj');
     }else {
         const btnOpcoes = document.querySelector('#btnOpcoes');
         btnOpcoes.addEventListener('click', exibeOpcoes);
@@ -45,6 +47,7 @@ window.onload = () => {
     maskData('dataRg');
     maskCel('celular');
     maskTel('telefone');
+    maskData('dataNasc');
 }
 
 function alteraCampoCpfCnpj(tipoPessoa) {
@@ -68,6 +71,8 @@ async function validaForm() {
     const idCliente = document.querySelector('#idCliente');
     const cpfCnpj = document.querySelector('#cpfCnpj');
     const nome = document.querySelector('#nome');
+    const sexo = document.querySelector('#sexo');
+    const dataNasc = document.querySelector('#dataNasc');
     const email = document.querySelector('#email');
     const celular = document.querySelector('#celular');
     const telefone = document.querySelector('#telefone');
@@ -92,6 +97,10 @@ async function validaForm() {
 
     if(!email.value) {
         return warningAlert({ descricao: 'O e-mail do cliente é de preenchimento obrigatório!' });
+    }
+
+    if(!dataNasc.value) {
+        return warningAlert({ descricao: 'A data de nascimento do cliente é de preenchimento obrigatório!' });
     }
 
     if(!celular.value) {
@@ -122,6 +131,8 @@ async function validaForm() {
         idCliente: idCliente.value,
         cpfCnpj: cpfCnpj.value,
         nome: nome.value,
+        sexo: sexo.value,
+        dataNasc: dataNasc.value,
         email: email.value,
         celular: celular.value,
         telefone: telefone.value,
